@@ -6,8 +6,8 @@
 
 # Define directories.
 SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-DOT_NET_SDK_VERSION=1.0.1
-TARGET_FRAMEWORK=netcoreapp1.1
+DOT_NET_SDK_VERSION=2.1.3
+TARGET_FRAMEWORK=netcoreapp2.0
 ###########################################################################
 # INSTALL .NET CORE CLI
 ###########################################################################
@@ -21,7 +21,6 @@ sudo bash "$SCRIPT_DIR/.dotnet/dotnet-install.sh" --version $DOT_NET_SDK_VERSION
 export PATH="$SCRIPT_DIR/.dotnet":$PATH
 export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
-dotnet --info
 
 cd build
 dotnet restore
@@ -32,5 +31,5 @@ dotnet publish -c Debug /v:q /nologo
 ###########################################################################
 
 # Start Cake
-dotnet "bin/Debug/$TARGET_FRAMEWORK/publish/Build.dll"
+exec "dotnet" "./bin/Debug/$TARGET_FRAMEWORK/publish/Build.dll" "$@"
 #exec dotnet "$CAKE_DLL" "$@"
